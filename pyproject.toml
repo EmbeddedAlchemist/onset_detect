@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "onset-detect"
+version = "0.1.0"
+description = "Streaming, fixed-point drum onset detection for embedded targets (16 kHz / Cortex-M3-class / RISC-V)"
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.26"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "matplotlib>=3.8", "scipy>=1.11", "soundfile>=0.12"]
+# GUI 后端：本机 Python 若未编译 tkinter，matplotlib 会退回 agg 无法弹窗。
+# 装 PyQt5 即可让 tools/dump_analysis.py 正常开窗口。
+gui = ["PyQt5>=5.15"]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
